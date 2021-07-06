@@ -47,8 +47,9 @@ proc Init;
         with addNewFrame() do
           SetColumns ([labelW, 0.9]); -- Установка ширины стоблцов фрейма
           FieldName = AddFieldEdit("Имя поля", EdtRec.FieldName);
-          fFieldName2 = IField.CreateEx("FieldName2","boolField_1",VarLogical);
-          FieldName2 = AddCheckBox("выбран",fFieldName2);
+--          fFieldName2 = IField.CreateEx("FieldName2","boolField_1",VarLogical); -- так неправильно не присваивается owner
+--          FieldName2 = AddCheckBox("выбран",fFieldName2);
+          FieldName2 = AddCheckBox("выбран",EdtRec.bField_1);
           FieldName2.SetValue(True);
         end;
 
