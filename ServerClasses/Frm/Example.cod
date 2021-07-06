@@ -1,0 +1,78 @@
+class inherited Com.Frm.SysFields "Пример интерфейса формы-редактора записи";
+
+import Com Classes Def;
+import Def;
+
+InClass Public
+
+#override;
+var RecordClass :Class Com.Rec.IRecord := Rec_Example;
+
+
+InObject Private
+var FieldName synonym ИмяПоля: IEdit;
+
+var fFieldName2 : IField;
+var FieldName2 : ICheckBox;
+
+var FieldName3 : IEdit;
+
+
+
+StructSubtbl :  Rec.subTblStruct;
+
+
+#override;
+var FRecord     : Rec_Example;
+var EdtRec      : Rec_Example;
+
+--proc InitRecord;
+--  inherited InitRecord;
+ -- StructSubtbl = EdtRec.ExamplSubTbl.DefStruct ; -- для многозначной структуры
+--end;
+
+--proc AfterInit;
+--  inherited AfterInit;
+--  StructSubtbl =  nil; -- для многозначной структуры
+--end;
+
+
+#override;
+proc Init;
+    Inherited Init;
+
+   -- var mainFrame: IFrame = RootFrame.AddNewFrame;
+    with FieldsFrame do -- Добавление нового кадра и дальнейшая работа с ним в блоке
+
+        with addNewFrame() do
+          SetColumns ([labelW, 0.9]); -- Установка ширины стоблцов фрейма
+          FieldName = AddFieldEdit("Имя поля", EdtRec.FieldName);
+          fFieldName2 = IField.CreateEx("FieldName2","boolField_1",VarLogical);
+          FieldName2 = AddCheckBox("выбран",fFieldName2);
+          FieldName2.SetValue(True);
+        end;
+
+        var subtbl: IFrame = AddNewFrame("фрейм подтаблицы");
+        with subtbl do
+           --AddHeader(, "наименование подтаблицы", "", 3,[]);
+            -- with AddNewFrame() do -- необязательно фрейм во фрейме
+               SetColumns ([labelW, 0.9]);
+               --FieldName2 = AddFieldEdit("Имя поля2", EdtRec.ExamplSubTbl.subtblField1);
+               --FieldName3 = AddFieldEdit("Имя поля3", EdtRec.ExamplSubTbl.subtblField2);
+
+               Subtable = EdtRec.ExamlSubTbl;   -- для многозначной структуры
+               --Numbering = false;
+               CanInsert = false;
+               CanDelete = false;
+               var line : Rec.subTblStruct = Subtable.DefStruct; -- для многозначной структуры
+              --var line : Rec.subTblStruct = EdtRec.ExamplSubTbl; -- для немногозначной структуры
+               AddFieldCol(, 60, line.subtblField1, "Name" );
+               AddFieldCol(, 60, line.subtblField2, "Name" );
+
+
+          -- end;
+        end;
+    end;
+end;
+
+end

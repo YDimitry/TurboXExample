@@ -1,0 +1,25 @@
+class inherited Com.IStruct "структура подтаблицы";
+import Com.Def;
+
+
+inclass  public
+  type TSubtbl = Example.sub_tbl;  -- запись подтаблицы в mtl
+  var StructClass : Class Structure :=TSubtbl;
+
+
+inobject public
+  stored var subtblField1  : IField;
+  stored var subtblField2  : IField;
+
+inobject private
+
+  var FStruct  :TSubtbl;
+
+
+  proc Init;
+  inherited Init;
+    subtblField1 = AddField("subtblField1","поле_1");
+    subtblField2 = AddField("subtblField2","поле_2");
+  end;
+
+end

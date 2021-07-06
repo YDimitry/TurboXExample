@@ -1,0 +1,9 @@
+record Example inherited Com.Base.SysFields title "Пример записи";
+
+    field FieldName synonym ИмяПоля :String;
+    field boolField_1 : Logical;
+    struct sub_tbl array Integer  title 'подтаблица записи'; --
+      field subtblField1 :String;
+      field subtblField2 :String;
+    end;
+end;

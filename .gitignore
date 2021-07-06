@@ -1,0 +1,9 @@
+*.~*
+*.#*
+*.7z
+*.deb
+*.dsk
+*.sig
+*.orig
+*.bak
+*.rej

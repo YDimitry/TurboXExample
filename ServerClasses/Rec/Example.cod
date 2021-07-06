@@ -1,0 +1,43 @@
+class inherited Com.Rec.SysFields "Пример интерфеса записи";
+
+Import Com Classes Def; -- Import Com.Def тоже работает
+import Def;
+
+InClass Public
+
+#override;
+var RecordClass :Class Record := TExample;
+#override;
+var EditorClass :Class Com.Frm.IEditor := Frm_Example;
+#override;
+var CardformClass :Class Frm.ICardForm := Tab_Example;
+
+--#Override;
+-- для немногозначной структуры
+-{func OpenRecord synonym ОткрытьПоЗаписи (aRec  :Record) :Rec_Example;
+    Result = Inherited OpenRecord(aRec);
+    --Result.SetOldInterface();
+    Result.ExamplSubTbl = Rec_Example_subTblStruct.CreateEx(Result.InternalRecord.sub_tbl);
+end; -}
+
+
+
+InObject Public
+
+stored var FieldName   : IField;
+       var bField_1    : IField; -- чекбокс
+
+stored var ExamlSubTbl : ISubtable;  -- для многозначной структуры
+--var ExamplSubTbl : Rec_Example_subTblStruct;  -- для немногозначной структуры
+
+InObject Private
+
+#override;
+proc Init;
+  inherited Init;
+  FieldName = AddField("FieldName");
+  bField_1 = AddField("boolField_1");
+  ExamlSubTbl = AddSubtable("sub_tbl", Rec.subTblStruct);  -- для многозначной структуры
+end;
+
+end

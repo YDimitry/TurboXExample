@@ -1,0 +1,12 @@
+class "Локальные наименования";
+
+InClass Public
+
+type TExample = Example;
+type Rec_Example = Rec.Example;
+type Frm_Example = Frm.Example;
+type Tab_Example = Tab.Example;
+type Rec_Example_subTblStruct = Rec.subTblStruct;
+
+
+end

@@ -1,0 +1,24 @@
+class inherited Com.Tab.SysFields "Пример интерфейса картотеки записи";
+
+import Com Classes Def;
+import Def;
+
+InClass Public
+
+#override;
+var RecordClass  :Class Rec.IRecord := Rec_Example;
+#override;
+--var GroupClass   :Class Rec.IRecord := Rec_Example;
+
+InObject Private
+
+#override;
+var Current: Rec_Example;
+
+#override;
+proc Init;
+    Inherited Init;
+    AddFieldCol( "@Имя поля", 30, , Current.FieldName );
+    AddFieldCol("@выбран",30,,Current.bField_1);
+end;
+end
