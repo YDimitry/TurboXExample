@@ -1,0 +1,24 @@
+class inherited Com.IStruct "parent subtable";
+import Com classes Def;
+
+inclass public
+  type Tsubtbl = examplRec.subtbl1;
+  var StructClass : Class Structure := Tsubtbl;
+
+inobject public
+  var Name     : IField;
+  var Fld1     : IField;
+  var Fld2     : IField;
+  var subtbl   : ISubtable;
+
+inobject private
+  var FStruct : Tsubtbl;
+  proc Init;
+     inherited Init;
+     Name = AddField("Name");
+     Fld1 = AddField("subtFld1");
+     Fld2 = AddField("subtFld2");
+     subtbl = AddSubtable("subtbl2",Rec.subTbl2Struct);
+  end;
+
+end

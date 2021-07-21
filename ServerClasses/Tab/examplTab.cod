@@ -1,0 +1,18 @@
+class inherited Com.Tab.SysFields;
+import Com classes Def;
+
+inclass public
+ var RecordClass :Class IRecord := Rec.examplRec;
+
+
+inobject private
+
+ var Current : Rec.examplRec;
+ proc Init;
+   inherited Init;
+   AddFieldCol("Название",30,,Current.Name);
+   AddFieldCol("Чек 1",30,,Current.fld1);
+   AddFieldCol("Чек 2",30,,Current.fld2);
+ end;
+
+end

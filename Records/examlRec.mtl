@@ -1,0 +1,19 @@
+record examplRec inherited Com.Base.SysFields;
+    field Name : String;
+    field fld1 : Logical;
+    field fld2 : Logical;
+
+    struct subtbl1 array integer;
+        field Name     : String;
+        field subtFld1 : Logical;
+        field subtFld2 : Logical;
+
+        struct subtbl2 array integer;
+           field Name     : String;
+           field subtFld1 : Logical;
+           field subtFld2 : Logical;
+        end;
+
+    end;
+
+end;

@@ -9,18 +9,16 @@ InClass Public
 var RecordClass :Class Com.Rec.IRecord := Rec_Example;
 
 
-InObject Private
+InObject public
 var FieldName synonym ИмяПоля: IEdit;
-
-var fFieldName2 : IField;
+var FieldName2_ : ICheckBox;
 var FieldName2 : ICheckBox;
-
 var FieldName3 : IEdit;
 
 
-
+InObject Private
 StructSubtbl :  Rec.subTblStruct;
-
+var fFieldName2 : IVar; -- для пробы создания локального поля
 
 #override;
 var FRecord     : Rec_Example;
@@ -47,8 +45,10 @@ proc Init;
         with addNewFrame() do
           SetColumns ([labelW, 0.9]); -- Установка ширины стоблцов фрейма
           FieldName = AddFieldEdit("Имя поля", EdtRec.FieldName);
---          fFieldName2 = IField.CreateEx("FieldName2","boolField_1",VarLogical); -- так неправильно не присваивается owner
---          FieldName2 = AddCheckBox("выбран",fFieldName2);
+
+          fFieldName2 = IVar.Create;                     -- локальная переменная без сохранения
+          FieldName2_ = AddCheckBox("выбран",fFieldName2);
+
           FieldName2 = AddCheckBox("выбран",EdtRec.bField_1);
           FieldName2.SetValue(True);
         end;
@@ -67,11 +67,17 @@ proc Init;
                CanDelete = false;
                var line : Rec.subTblStruct = Subtable.DefStruct; -- для многозначной структуры
               --var line : Rec.subTblStruct = EdtRec.ExamplSubTbl; -- для немногозначной структуры
-               AddFieldCol(, 60, line.subtblField1, "Name" );
-               AddFieldCol(, 60, line.subtblField2, "Name" );
+               AddFieldCol(, 60, line.subtblField1 );
+               AddFieldCol(, 60, line.subtblField2 );
 
 
           -- end;
+        end;
+        with AddNewFrame do
+
+
+
+          
         end;
     end;
 end;

@@ -1,0 +1,48 @@
+class inherited Com.Frm.SysFields;
+import Com classes Def;
+
+inclass public
+ var RecordClass :Class IRecord := Rec.examplRec;
+
+inobject public
+  var Name : IEdit;
+  var Fld1 : ICheckBox;
+  var Fld2 : ICheckBox;
+
+
+inobject private
+
+  var FRecord: Rec.examplRec;
+  var EdtRec : Rec.examplRec;
+  proc Init;
+     inherited Init;
+     with FieldsFrame do
+         with AddNewFrame do
+             Name = AddFieldEdit(,EdtRec.Name);
+             Fld1 = AddCheckBox(,EdtRec.fld1);
+             Fld2 = AddCheckBox(,EdtRec.fld2);
+         end;
+         with AddNewFrame do
+            Subtable = EdtRec.subtbl1;
+            var vDef:Rec.subTbl1Struct  = Subtable.DefStruct;
+            AddFieldCol("Ќазвание",60,vDef.Name);
+            AddFieldCol("выбор1",30,vDef.Fld1);
+            AddFieldCol("выбор2",30,vDef.Fld2);
+           
+         end; --подтаблица
+
+         with AddNewFrame do -- так не работает
+            var vTblStruc: Rec.subTbl1Struct = EdtRec.subtbl1.Items[1]; -- 1 запись в подтаблице
+            Subtable = vTblStruc.subtbl;
+            var vDef:Rec.subTbl2Struct = Subtable.DefStruct;
+
+            AddFieldCol("Ќазвание2",60, vDef.Name);
+            AddFieldCol("выбор1",30,vDef.Fld1);
+            AddFieldCol("выбор2",30,vDef.Fld2);
+         end;
+
+
+     end;
+  end;
+
+end
