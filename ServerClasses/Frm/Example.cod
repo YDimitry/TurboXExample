@@ -1,6 +1,6 @@
 class inherited Com.Frm.SysFields "Пример интерфейса формы-редактора записи";
 
-import Com Classes Def;
+import Com.Def, Bas;
 import Def;
 
 InClass Public
@@ -36,11 +36,11 @@ var EdtRec      : Rec_Example;
 
 
 #override;
-proc Init;
-    Inherited Init;
+  proc Init;
+     Inherited Init;
 
-   -- var mainFrame: IFrame = RootFrame.AddNewFrame;
-    with FieldsFrame do -- Добавление нового кадра и дальнейшая работа с ним в блоке
+    -- var mainFrame: IFrame = RootFrame.AddNewFrame;
+     with FieldsFrame do -- Добавление нового кадра и дальнейшая работа с ним в блоке
 
         with addNewFrame() do
           SetColumns ([labelW, 0.9]); -- Установка ширины стоблцов фрейма
@@ -51,7 +51,15 @@ proc Init;
 
           FieldName2 = AddCheckBox("выбран",EdtRec.bField_1);
           FieldName2.SetValue(True);
+
+          var vButton = AddButton( "test button label", @ButtonTest_OnClick );
+          vButton.Width = 100;
+          vButton.Caption="test button caption";
+
         end;
+
+
+
 
         var subtbl: IFrame = AddNewFrame("фрейм подтаблицы");
         with subtbl do
@@ -77,9 +85,63 @@ proc Init;
 
 
 
-          
+
         end;
-    end;
-end;
+     end;
+  end;
+
+  proc ButtonTest_OnClick(aSender: Com.Ctrl.IControl ;aIndex:Integer );
+      --var vPos = Strings.Concat(["Add",SubStr("PropsNewLine",6)]);--Pos("Props","PropsNewLine");
+     -- trace(ReplaceWithStatic("PropsClosedSwD"));
+--      var vVar = self.ClassInfo.MemberByName("FieldName3") as VarInfo;
+     -- vVariable.CallFunc("SetValue",fFieldName2);(fFieldName2);
+     --vVariable.FuncRef(FieldName);
+--      FieldName3 = FieldName;
+--         var vVariable =  self.GetField("FieldName3");
+--         var vVar:Variant = self.GetField("FieldName3_");
+--       if vVar <>nil then
+--          self.SetField("FieldName3_",FieldName);
+--          dlgs.Message(FieldName3.GetValue);
+         
+--       end;
+
+  -- Ассоциотивный массив
+     var vAssoc = AssociativeArray.Create;
+     var vIndex = "someIndex_1";
+     for var I = 1..10 do
+         var vInd  = vAssoc.GetValue(vIndex) as String[];
+         if vInd<>nil then
+--             InsertInArray(vInd,vInd.Length,"someVar_"+str(I));
+             vInd.Add("someVar_"+str(I));
+             vAssoc.SetValue(vIndex,vInd);
+
+         else
+
+            vAssoc.Add(vIndex,["someVar_"+str(I)]);
+         end;
+         if I=5 then
+            vIndex = "someIndex_2";
+           
+         end;
+     end;
+
+  end;
+
+
+  func ReplaceWithStatic(aPropName:String) :Integer;
+
+      var vPropsToReplace =["PropsPrinterNumberSwD",
+                            "PropsEventTimeSwD",
+                            "PropsОбщСтатусSwD",
+                            "PropsLockedSwD",
+                            "PropsClosedSwD"];
+      var vReplaceNum = [2,2,3,1,1];
+
+      var vIndex = SearchInArray(vPropsToReplace,aPropName);
+      if vIndex>0 then
+          Result = vReplaceNum[vIndex];
+      end;
+
+  end;
 
 end
