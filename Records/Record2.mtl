@@ -1,0 +1,5 @@
+hierarchical record Record2 inherited Bas.Base.CodeName title 'пример записи2';
+
+   field GroupPath         :String(MaxIndexedStr);
+
+end;

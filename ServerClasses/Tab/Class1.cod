@@ -1,0 +1,28 @@
+
+class inherited Bas.Tab.CodeName "Class1";
+
+
+
+
+
+inclass public
+  var UseResource  :Logical := True;
+
+  var RecordClass  :Class Com.Rec.IRecord := Rec.Class1;
+  var EditorClass  :Class Com.Frm.IEditor := nil; -- in-line редактирование
+
+inobject public
+  var Current :Rec.Class1;
+
+inobject private
+  proc Init;
+     inherited Init;
+     Hierarchical = False;
+     ButtonTree?.Visible = False;
+     ShowTree = False;
+     CanOpen = False;
+     CanEdit = True;
+
+  end;
+
+end

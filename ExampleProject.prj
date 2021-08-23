@@ -3,10 +3,12 @@
   <Options Caption="Example project" Version="1.00" Author="Copyright © 2021 Eugene" Code="0" SubCode="0" WebCode="0" WebSubCode="0" Frontal="True"/>
   <Usage>
     <Project Name="Bas"/>
+    <Project Name="Biz"/>
     <Project Name="Com"/>
   </Usage>
   <Groups>
     <Group Name="Records" Type="Documents" Disabled="False"/>
     <Group Name="ServerClasses" Type="Classes" Disabled="False"/>
+    <Group Name="Structure" Type="CalcStructs" Disabled="False"/>
   </Groups>
 </Project>
