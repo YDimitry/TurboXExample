@@ -4,5 +4,5 @@ inclass public
   var RecordClass :class Record := Record1;
   --var EditorClass :Class Com.Frm.IEdiror :=
   var CardFormClass :Class Com.Frm.ICardForm := Tab.Class1;
-  var NewRecordName :String :="Новая запись";
+  var NewRecordName :String :="Новая запись1";
 end

@@ -1,10 +1,10 @@
-  reference refClass1  from Record1, title "Пример справочника";
+  reference refClass1  from Record1, title "Пример справочника 1";
     field Code        synonym Name, Код     :String, from Code;
     field Description synonym Наименование  :String, notrefresh, notloaded, from Name;
   end;
 
 
-  reference refClass2  from Record1, card Tab.Class1, title "Пример справочника";
+  reference refClass2  from Record1, card Tab.Class2, title "Пример справочника 2";
     field Code        synonym Name, Код     :String, from Code;
     field Description synonym Наименование  :String, notrefresh, notloaded, from Name;
   end;

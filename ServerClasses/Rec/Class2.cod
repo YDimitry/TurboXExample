@@ -1,0 +1,8 @@
+class inherited Bas.Rec.CodeName;
+
+inclass public
+  var RecordClass :class Record := Record2;
+  --var EditorClass :Class Com.Frm.IEdiror :=  -- in-line редактирование
+  var CardFormClass :Class Com.Frm.ICardForm := Tab.Class2;
+  var NewRecordName :String :="Новая запись2";
+end
