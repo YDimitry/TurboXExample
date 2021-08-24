@@ -43,7 +43,7 @@ inobject private
   proc SetVisibility;
     inherited SetVisibility;
     subbrandsFrame?.Visible = EdtRec.State <> Record.Created and (EdtRec.IsGroup$ or EdtRec.GroupDoc.IsNull);
-    var UpdateNavigator  = subbrandsCard?.ClassInfo.MemberByName("UpdateNavigator") as MethodInfo;
+    var UpdateNavigator  = ICardForm.ClassInfo.MemberByName("UpdateNavigator") as MethodInfo;
     UpdateNavigator?.CallProc(subbrandsCard);
     subbrandsFrame?.Redraw;
   end;

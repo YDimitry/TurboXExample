@@ -1,5 +1,6 @@
 extends Biz.Rec.Ref.Brand "";
 import Com.Def;
+import Bas classes Numerators.Consts;
 
 inclass public
   var EditorClass :Class IEditor := Frm.Ref.Brand;
@@ -21,5 +22,43 @@ inobject private
   func IsGroup_OnVerify(aSender :IValue; var aValue :Variant) :Logical;
      Result = not aValue or GroupDoc.IsNull;
   end;
+
+  proc DoPost( aDialogs  :Logical = False );
+     inherited DoPost(aDialogs);
+
+   
+  end;
+
+  proc DoCreate;
+     inherited DoCreate;
+     Code_ = DocNumerator.GetNewCount(@_NumerationRule);
+
+  end;
+
+  proc _NumerationRule( aSource  :IRecord; aSettings  :Bas.Numerators.BasicRule );
+
+     var ParentCode:string = "";
+     if GroupDoc_<>nil then
+        ParentCode = GroupDoc_.Code;
+     end;
+
+
+
+     aSettings.ПолеНумерации = (aSource as Biz.Rec.Ref.Brand).Code;
+
+     with aSettings do
+        NumberingMethod             = снДокумент_Последовательно;
+--        NumberingMethod             = снНумератор_Процедура;
+--        NumberingFunc               = @_NumberingFunc;
+        ОформлениеНомера            = [[спзПроизвольныйТекст,0,ParentCode],[спзНомерИзНумератора, 3, "0"]];   -- ТипИсточника(int),Длина(int),Значение(str)
+        ФильтрОтбораДокументов      = if(GroupDoc<>nil,fmt("GroupDoc=%s",[GroupDoc]),"GroupDoc=nil");
+
+     end;
+
+  end;
+
+ func _NumberingFunc(aSource  :Numerators.EnumOnCounter) :Variant;
+   Result = 1;
+ end;
 
 end
