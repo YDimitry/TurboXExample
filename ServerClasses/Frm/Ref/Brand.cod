@@ -1,0 +1,76 @@
+class inherited Bas.Frm.CodeName;
+import Biz, Com.Def;
+
+
+inclass public
+  var RecordClass :Class IRecord = Rec.Ref.Brand;
+
+  var subbrandsFrame    :IFrame;
+  var subbrandsCard   :Biz.Def.Tab_Brands;
+
+inobject private
+  proc Init;
+     inherited Init;
+     Code.Visible = True;
+     Name.Visible = True;
+--     TabsFrame.Visible = True;
+--     MainTab.Caption = "Бренды";
+     subbrandsFrame = RootFrame.AddNewFrame;
+     with subbrandsFrame do
+        subbrandsCard = AddComp(IForm.CreateTabForm(Self, Biz.Def.Tab_Brands));
+        subbrandsCard.ShowOnlySubbrands;
+        subbrandsCard.Caption = "Подбренды";
+
+        --AutoSize = False;
+        with subbrandsCard do
+              AddOnCreateRecord( proc(aRec :IRecord)
+                                     if not EdtRec.IsGroup$ then
+                                         EdtRec.IsGroup$ = True;
+                                      end;
+                                 end);
+
+        end;
+
+     end;
+
+  end;
+
+  proc DoPost;
+     inherited DoPost;
+     SetVisibility;
+  end;
+
+  proc SetVisibility;
+    inherited SetVisibility;
+    subbrandsFrame?.Visible = EdtRec.State <> Record.Created and (EdtRec.IsGroup$ or EdtRec.GroupDoc.IsNull);
+    var UpdateNavigator  = subbrandsCard?.ClassInfo.MemberByName("UpdateNavigator") as MethodInfo;
+    UpdateNavigator?.CallProc(subbrandsCard);
+    subbrandsFrame?.Redraw;
+  end;
+
+  proc OnRead;
+     Inherited OnRead;
+     if EdtRec.IsGroup$ then
+         subbrandsCard?.Root = EdtRec.InternalRecord;
+         subbrandsCard?.SetCurrentGroup(EdtRec.InternalRecord);
+         subbrandsCard?.SetField("FHistoryList", [EdtRec.InternalRecord]);
+         subbrandsCard?.SetField("FHistoryIdx", 1);
+         subbrandsCard?.GetField("ButtonBack")?.Enabled = False;
+         subbrandsCard?.Filter = subbrandsCard?.Filter;
+     end;
+  end;
+
+  proc RestoreUserState;
+     Inherited RestoreUserState;
+     if EdtRec.IsGroup$ then
+         subbrandsCard?.Root = EdtRec.InternalRecord;
+         subbrandsCard?.SetCurrentGroup(EdtRec.InternalRecord);
+         subbrandsCard?.SetField("FHistoryList", [EdtRec.InternalRecord]);
+         subbrandsCard?.SetField("FHistoryIdx", 1);
+         subbrandsCard?.GetField("ButtonBack")?.Enabled = False;
+         subbrandsCard?.Filter = subbrandsCard?.Filter;
+     end;
+  end;
+
+
+end

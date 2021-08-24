@@ -1,0 +1,33 @@
+extends Biz.Tab.Ref.Brands "";
+import Com.Def;
+
+inclass public
+  var EditorClass :Class IEditor = Frm.Ref.Brand;
+  var UseResource  :Logical := False;  -- не использовать crf файл
+
+inobject private
+
+  proc Init;
+     inherited Init;
+
+  end;
+
+inobject public
+  proc ShowOnlyBrands;
+      Hierarchical = False;
+      ShowTree = False;
+      ExternalFilter = "GroupDoc = nil";
+  end;
+
+
+  proc ShowOnlySubbrands;
+      Hierarchical = True;
+      ShowTree = False;
+      ExternalFilter = nil;
+      ButtonTree?.Enabled = False;
+  end;
+
+
+
+
+end

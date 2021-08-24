@@ -1,0 +1,25 @@
+extends Biz.Rec.Ref.Brand "";
+import Com.Def;
+
+inclass public
+  var EditorClass :Class IEditor := Frm.Ref.Brand;
+--  var NewRecordName :String:= "@Brand:New=овый бред";
+
+
+inobject private
+  proc Init;
+     inherited Init;
+     AddOnCreate(proc
+                    if GroupDoc$ = nil then
+                       IsGroup$ = True;
+                     end;
+                  end);
+
+     isGroup.OnVerify = @IsGroup_OnVerify;
+  end;
+
+  func IsGroup_OnVerify(aSender :IValue; var aValue :Variant) :Logical;
+     Result = not aValue or GroupDoc.IsNull;
+  end;
+
+end
