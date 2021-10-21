@@ -50,7 +50,7 @@ var EdtRec      : Rec_Example;
           FieldName2_ = AddCheckBox("выбран",fFieldName2);
 
           FieldName2 = AddCheckBox("выбран",EdtRec.bField_1);
-          FieldName2.SetValue(True);
+
 
           var vButton = AddButton( "test button label", @ButtonTest_OnClick );
           vButton.Width = 100;
@@ -91,6 +91,14 @@ var EdtRec      : Rec_Example;
   end;
 
   proc ButtonTest_OnClick(aSender: Com.Ctrl.IControl ;aIndex:Integer );
+
+      var j: integer;
+
+      for var I = 1..10 do
+         j = j + 1; -- унарный оператор
+      end;
+
+      trace(J);
       --var vPos = Strings.Concat(["Add",SubStr("PropsNewLine",6)]);--Pos("Props","PropsNewLine");
      -- trace(ReplaceWithStatic("PropsClosedSwD"));
 --      var vVar = self.ClassInfo.MemberByName("FieldName3") as VarInfo;

@@ -8,7 +8,10 @@ inclass public
 
 inobject public
    var Name     : IField;
+   -- Name_ уже присутствует в ComFields
+   --var Name_    : String get func: String Result = Name.Value; end set proc(a:String) Name.Value = a; end;
    var fld1 : IField;
+   var fld1_    : Logical get func: Logical Result = fld1.Value; end set proc(a:Logical) fld1.Value = a; end;
    var fld2 : IField;
    var subtbl1 : ISubtable;
 
