@@ -11,14 +11,14 @@ var RecordClass :Class Com.Rec.IRecord := Rec_Example;
 
 InObject public
 var FieldName synonym ИмяПоля: IEdit;
-var FieldName2_ : ICheckBox;
+
 var FieldName2 : ICheckBox;
 var FieldName3 : IEdit;
 
 
 InObject Private
 StructSubtbl :  Rec.subTblStruct;
-var fFieldName2 : IVar; -- для пробы создания локального поля
+
 
 #override;
 var FRecord     : Rec_Example;
@@ -46,12 +46,15 @@ var EdtRec      : Rec_Example;
           SetColumns ([labelW, 0.9]); -- Установка ширины стоблцов фрейма
           FieldName = AddFieldEdit("Имя поля", EdtRec.FieldName);
 
-          fFieldName2 = IVar.Create;                     -- локальная переменная без сохранения
-          FieldName2_ = AddCheckBox("выбран",fFieldName2);
+          var tmpFieldName2 = IVar.Create;                     -- локальная переменная без сохранения
+          AddStatic
+          FieldName2 = AddCheckBox("замок",tmpFieldName2);
+          FieldName2.AddOnInput(proc
+--          ReadOnly = FieldName2.GetValue;
+--          SetVisibility;
+          end);
 
-          FieldName2 = AddCheckBox("выбран",EdtRec.bField_1);
-
-
+          AddStatic
           var vButton = AddButton( "test button label", @ButtonTest_OnClick );
           vButton.Width = 100;
           vButton.Caption="test button caption";
@@ -61,7 +64,23 @@ var EdtRec      : Rec_Example;
              FillList([ " ", "@Entity:GenderMale=Мужской|1", "@Entity:GenderFemale=Женский|2" ]);
              Alignment = LeftAlign;
           end;
+          SetColumns ([labelW, 1/2,labelW, 1/2, labelW,1/2, labelW, 1/2]);
+          AddStatic;
+          AddCheckBox("разрешить пересчет",EdtRec.bField_1);
+          AddFieldEdit("Поле 1", EdtRec.nField1);
+          AddFieldEdit("Поле 2", EdtRec.nField2);
+          with AddFieldEdit("Поле 3", EdtRec.nField3) do
 
+          end;
+
+          AddStatic;
+          AddCheckBox("разрешить пересчет",EdtRec.bField_2);
+          AddFieldEdit("Поле 4", EdtRec.nField4);
+          with AddFieldEdit("Поле 5", EdtRec.nField5)  do
+
+          end;
+          AddStatic;
+          AddStatic;
         end;
 
 
@@ -94,6 +113,11 @@ var EdtRec      : Rec_Example;
 
         end;
      end;
+  end;
+
+  proc SetVisibility;
+     inherited SetVisibility;
+    
   end;
 
   proc ButtonTest_OnClick(aSender: Com.Ctrl.IControl ;aIndex:Integer );

@@ -24,24 +24,50 @@ end; -}
 
 InObject Public
 
-stored var FieldName   : IField;
-       var bField_1    : IField; -- чекбокс
-
-stored var ExamlSubTbl : ISubtable;  -- для многозначной структуры
+      var FieldName   : IField;
+      var bField_1    : IField; -- чекбокс
+      var bField_2    : IVar;
+      var ExamlSubTbl : ISubtable;  -- для многозначной структуры
 --var ExamplSubTbl : Rec_Example_subTblStruct;  -- для немногозначной структуры
 
-       var test_field1 : IVar;
+       var nField1 : IVar;
+       var nField2 : IVar;
+       var nField3 : IVar;
+       var nField4 : IVar;
+       var nField5 : IVar;
+
        var gender : IField;
 InObject Private
 
 #override;
 proc Init;
   inherited Init;
-  FieldName = AddField("FieldName");
-  bField_1 = AddField("boolField_1");
+  FieldName   = AddField("FieldName");
+  bField_1    = AddField("boolField_1");
   ExamlSubTbl = AddSubtable("sub_tbl", Rec.subTblStruct);  -- для многозначной структуры
-  test_field1 = AddVar("test_var",VarInteger);
-  gender = AddField("gender");
+
+  nField1     = AddVar("var1",VarNumeric);
+  nField2     = AddVar("var2",VarNumeric);
+  nField3     = AddVar("var3",VarNumeric);
+  bField_2    = AddVar("boolField_2",VarLogical);
+  nField4     = AddVar("var4",VarNumeric);
+  nField5     = AddVar("var5",VarNumeric);
+
+  nField3.AutoRecalc(func:Logical return bField_1.Value;end,proc nField3.Value = nField1.Value + nField2.Value;end,[nField1,nField2,bField_1])
+
+  nField5.BeforeCalc = func(aSender:Com.Fld.IValue):Logical Result = bField_2.Value;end;
+  nField5.OnCalc = @changeField5;
+
+  gender      = AddField("gender");
 end;
+
+
+  #Attr DependsOn="var4";
+  func changeField5(aSender :Com.Fld.IValue) :Variant;
+      Result = nField4.Value;
+  end;
+
+
+
 
 end
