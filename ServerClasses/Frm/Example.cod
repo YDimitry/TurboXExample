@@ -1,6 +1,6 @@
 class inherited Com.Frm.SysFields "Пример интерфейса формы-редактора записи";
 
-import Com.Def, Bas;
+import Com.Def, Bas, Com.Consts;
 import Def;
 
 InClass Public
@@ -55,6 +55,12 @@ var EdtRec      : Rec_Example;
           var vButton = AddButton( "test button label", @ButtonTest_OnClick );
           vButton.Width = 100;
           vButton.Caption="test button caption";
+
+          with AddFieldEdit("@Examle:Пол",EdtRec.gender) do
+             CellFormat = EnumFormat;
+             FillList([ " ", "@Entity:GenderMale=Мужской|1", "@Entity:GenderFemale=Женский|2" ]);
+             Alignment = LeftAlign;
+          end;
 
         end;
 

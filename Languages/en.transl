@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Translation Version="1" SrcLang="ru" DstLang="en" SubProj="False" ScanTPL="False">
+  <Strings>
+    <String Name="Gender:Male" State="102" Status="1" Src="Мужской|1" New="Male" Comment="не используется" Author="user" Created="2021-11-22T10:07:19.209" Modified="2021-11-22T10:25:26.544"/>
+    <String Name="Gender:Female" State="102" Status="1" Src="Женский|2" New="Female" Comment="не используется" Author="user" Created="2021-11-22T10:07:19.209" Modified="2021-11-22T10:25:37.586"/>
+    <String Name="Имя поля" State="2" Status="1" Src="Имя поля" New="Field Name" Author="user" Created="2021-11-22T10:07:19.382" Modified="2021-11-22T10:08:09.471"/>
+    <String Name="выбран" State="2" Status="1" Src="выбран" New="Selected" Author="user" Created="2021-11-22T10:07:19.382" Modified="2021-11-22T10:08:16.887"/>
+    <String Name="Examle:поле выбора" State="100" Src="поле выбора" Created="2021-11-22T10:09:57.379"/>
+    <String Name="Examle:Пол" State="2" Status="1" Src="Пол" New="Gender" Author="user" Created="2021-11-22T10:11:01.33" Modified="2021-11-22T10:11:12.368"/>
+    <String Name="Entity:GenderMale" State="2" Status="1" Src="Мужской|1" New="Male" Author="D.Yershov" Created="2021-11-22T10:11:01.33" Modified="2021-11-22T10:11:12.368"/>
+    <String Name="Entity:GenderFemale" State="2" Status="1" Src="Женский|2" New="Female" Author="D.Yershov" Created="2021-11-22T10:11:01.33" Modified="2021-11-22T10:11:12.368"/>
+  </Strings>
+</Translation>

@@ -30,6 +30,8 @@ stored var FieldName   : IField;
 stored var ExamlSubTbl : ISubtable;  -- для многозначной структуры
 --var ExamplSubTbl : Rec_Example_subTblStruct;  -- для немногозначной структуры
 
+       var test_field1 : IVar;
+       var gender : IField;
 InObject Private
 
 #override;
@@ -38,6 +40,8 @@ proc Init;
   FieldName = AddField("FieldName");
   bField_1 = AddField("boolField_1");
   ExamlSubTbl = AddSubtable("sub_tbl", Rec.subTblStruct);  -- для многозначной структуры
+  test_field1 = AddVar("test_var",VarInteger);
+  gender = AddField("gender");
 end;
 
 end
