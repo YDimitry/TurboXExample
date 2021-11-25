@@ -1,4 +1,4 @@
-class inherited Com.Tab.SysFields;
+class inherited Com.Tab.SysFields "Пример 2 картотеки";
 import Com classes Def;
 
 inclass public

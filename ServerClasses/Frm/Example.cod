@@ -85,8 +85,12 @@ var EdtRec      : Rec_Example;
 
 
 
+        var subtbl : ITable = ITable.Create;
+       -- var subtbl: IFrame = AddNewFrame("фрейм подтаблицы");
+       with AddNewFrame do
+          AddComp(subtbl);
+       end;
 
-        var subtbl: IFrame = AddNewFrame("фрейм подтаблицы");
         with subtbl do
            --AddHeader(, "наименование подтаблицы", "", 3,[]);
             -- with AddNewFrame() do -- необязательно фрейм во фрейме
@@ -106,19 +110,35 @@ var EdtRec      : Rec_Example;
 
           -- end;
         end;
-        with AddNewFrame do
 
-
-
-
-        end;
      end;
+
+     ButtonServices.AddCommand(IButton.CreateCommand( "", proc(aSender :IControl; aIndex :Integer) srvOpenexamplTab ; end, "Com CardFile1", '@Открыть картотеку examplTab'  ));
+
+
+
   end;
 
   proc SetVisibility;
      inherited SetVisibility;
-    
+     ButtonServices.Visible = True;
   end;
+
+  proc srvOpenexamplTab;
+     var examplTab = Tab.examplTab.Create;
+     examplTab.ReferrerForm = Self;
+
+     examplTab.Caption = examplTab.Caption +" для "+EdtRec.InternalRecord.FieldName;
+     examplTab.ExternalFilter  = Fmt("Name='%s'",[EdtRec.InternalRecord.FieldName]);
+     examplTab.AddOnCreateRecord(
+          proc( aRec :IRecord )
+             with Rec.examplRec(aRec) do
+                Name.Value = EdtRec.InternalRecord.FieldName;
+             end;
+          end );
+     examplTab.Show( StackedWindow );
+  end;
+
 
   proc ButtonTest_OnClick(aSender: Com.Ctrl.IControl ;aIndex:Integer );
 

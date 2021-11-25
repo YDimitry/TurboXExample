@@ -30,7 +30,7 @@ inobject private
             AddFieldCol("выбор2",30,vDef.Fld2);
            
          end; --подтаблица
-
+-{
          with AddNewFrame do -- так не работает
             var vTblStruc: Rec.subTbl1Struct = EdtRec.subtbl1.Items[1]; -- 1 запись в подтаблице
             Subtable = vTblStruc.subtbl;
@@ -40,7 +40,7 @@ inobject private
             AddFieldCol("выбор1",30,vDef.Fld1);
             AddFieldCol("выбор2",30,vDef.Fld2);
          end;
-
+-}
 
      end;
   end;
