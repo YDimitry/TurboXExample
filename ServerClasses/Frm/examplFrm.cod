@@ -1,4 +1,5 @@
 class inherited Com.Frm.SysFields;
+
 import Com classes Def;
 
 inclass public
@@ -43,6 +44,39 @@ inobject private
 -}
 
      end;
-  end;
 
+
+
+
+
+     with TabsFrame do
+        with AddNewFrame("test Frame")do
+            SetColumns([ LabelW, 0.99, -40]);
+            AddStatic;
+            var test_chk = FRecord.AddVar("test_field",VarLogical);
+            AddCheckBox("Label for chk",test_chk);
+        end;
+     end;
+
+     var newFrame = IFrame.CreateEx("test Frame2");
+     TabsFrame.InsertComp(newFrame);
+
+     with newFrame do
+--            with AddNewFrame do
+               SetColumns([ LabelW, 0.99, -40]);
+               AddStatic;
+               var test_chk = FRecord.AddVar("test_field2",VarLogical);
+               AddCheckBox("Label for chk",test_chk);
+--            end;
+     end;
+
+
+
+
+  end;
+  proc SetVisibility;
+     inherited SetVisibility;
+     TabsFrame.Visible = True;
+    
+  end;
 end

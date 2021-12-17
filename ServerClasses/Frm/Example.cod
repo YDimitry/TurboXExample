@@ -60,6 +60,7 @@ var EdtRec      : Rec_Example;
           vButton.Caption="test button caption";
 
           with AddFieldEdit("@Examle:Пол",EdtRec.gender) do
+             --ShortList = True; -- будет построен выпадающий список на основе заданной картотеки
              CellFormat = EnumFormat;
              FillList([ " ", "@Entity:GenderMale=Мужской|1", "@Entity:GenderFemale=Женский|2" ]);
              Alignment = LeftAlign;
