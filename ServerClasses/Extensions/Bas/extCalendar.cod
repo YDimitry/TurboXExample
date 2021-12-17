@@ -1,0 +1,35 @@
+extends Bas.Calendar "";
+
+inclass public
+
+func НомерНеделиВГоду( aDate :Date ) :Integer;
+  var FstMon = ПервыйПонедельникГода(Year(aDate));
+
+  if aDate < FstMon then
+     FstMon = ПервыйПонедельникГода( Year(aDate) - 1 );
+  end;
+  var weeks = ПолучитьКолВоДнейЗаПериод(FstMon,aDate) / 7;
+
+  var trunc_weeks = trunc(weeks);
+  Result = int(trunc_weeks + if(weeks - trunc_weeks = 0, 0, 1));
+
+
+end;
+
+func ПервыйПонедельникГода( aYear:Integer) :Date;
+    Result = CreateDate(1,1,aYear)
+    if DayOfWeek(Result)>1 then
+       Result = НачалоНеделиДляДаты(Result)+7;
+    end;
+end;
+
+--@Doc aYear: Год
+--@Doc aWeek: номер недели в году
+--@Doc aDay: день недели
+func ПолучитьДатуПоНеделе(aYear,aWeek,aDay:Integer) :Date;
+  Result = ПервыйПонедельникГода(aYear)+(aWeek-1)*7+aDay-1;
+end;
+
+
+
+end

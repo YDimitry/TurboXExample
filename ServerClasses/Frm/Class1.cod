@@ -1,0 +1,125 @@
+class inherited Com.Frm.IBlankWIthFrames "";
+import Com Classes Def, Consts;
+import SYS Classes Utils;
+import Bas Classes Calendar;
+
+inclass
+
+inobject private
+   var FGrid: Ctrl.IGrid;
+   var FCol1 : Ctrl.Grid.INode;
+   var FCol2 : Ctrl.Grid.INode;
+proc Init;
+   inherited Init;
+
+
+   --RootFrame.Color = 125;
+   TabsFrame.Visible  = True;
+   MainTab.Caption = "Инфо тест" ;
+   with TabsFrame.AddNewFrame("Дополнительно") do
+       with AddNewFrame do
+          with AddButton("colapse",@BtnColapse_OnClick) do
+             Caption = "Свернуть";
+             width = 50;
+          end
+       end;
+       with AddNewFrame do
+          FGrid = AddComp(Ctrl.IGrid.Create);
+       end;
+
+
+
+   end;
+       var vNode = FGrid.Rows.AddNode("RowNode_1","Строка 1");
+
+       with vNode do
+          IsGroup = True;
+          AutoWidth = True;
+          GroupsFirst = True;
+          Hierarchical = True;
+          var n1 = AddNode("RowNode_1_1","Row 1-1");
+          n1.AutoWidth = True;
+--          n1.Hierarchical = True;
+--          n1.GroupsFirst = True;
+--
+--          var n2 = CreateLeaf("RowNode_1_2","Row 1-2");
+--          n2.AutoWidth = True;
+--          n2.Hierarchical = True;
+--          n2.GroupsFirst = True;
+--          var n1 = CreateLeaf("RowNode_1_2","Row 1-2");
+--          n1.AutoWidth = True;
+--          n1.Hierarchical = True;
+--          n1.GroupsFirst = True;
+--          n1.IsGroup = True;
+
+
+       end;
+
+--        vNode.CreateLeaf("leaf1_1","подстрока 1");
+--        vNode.AddNode("RowNode_2","Строка 2");
+
+    with FGrid.Columns do
+       FCol1 = AddNode("ColNode_1","Column 1");
+       with FCol1 do
+          var n1 = AddNode("ColNode_1_1","Column 1-1");
+          var n2 = AddNode("ColNode_1_2","Column 1-2");
+          var n3 = AddNode("ColNode_1_3","Column 1-3");
+          var n4 = AddNode("ColNode_1_4","Column 1-4");
+
+--          n1.Border = [0, 0, 0,0] ;
+--           CreateLeaf("ColNode_1_1","Column 1-1");
+--           CreateLeaf("ColNode_1_2","Column 1-2");
+--           CreateLeaf("ColNode_1_3","Column 1-3");
+--
+--           IsGroup = True;
+--           Hierarchical = True;
+       end;
+
+       FCol2 = AddNode("ColNode_2","Column 2");
+
+       AddNode("ColNode_3","Column 3");
+
+    end;
+
+
+
+   with RootFrame do
+      SetColumns([-StdLabelWidth,1/2,-ButtonSize]);
+   end;
+   with MainTab.AddNewFrame.AddBox("Это Бокс") do
+       --SetColumns([-StdLabelWidth,1/2,-ButtonSize]);
+       Color = rgb(250, 237, 198);
+       --Adaptive = True;
+       var fieldVar1 = AddVar("FieldVar1",VarDate)
+       with AddFieldEdit("поле 1",fieldVar1) do
+          HasButton = True;
+          AddOnInput(proc
+                          trace(НомерНеделиВГоду(fieldVar1.Value));
+
+                     end);
+       end;
+
+       AddButton("-",proc(aSender:IControl;aIndex:Integer)
+                      -- trace(НомерНеделиВГоду(fieldVar1.Value));
+                       trace(ПолучитьДатуПоНеделе(Year(fieldVar1.Value), НомерНеделиВГоду(fieldVar1.Value), DayOfWeek(fieldVar1.Value)));
+                     end);
+
+--       with AddFieldEdit("поле 2",AddVar("FieldVar2",VarInteger)) do
+--          HasButton = True;
+--          AddOnInput(proc trace(НомерНеделиВГоду(fieldVar1.Value));end);
+--       end;
+
+
+   end;
+
+
+--    FGrid.Section.Row[2].Visible = False;
+
+end;
+
+proc BtnColapse_OnClick(aSender:IControl;aIndex:Integer);
+    FCol2.Visible = not FCol2.Visible;
+end;
+
+
+end
