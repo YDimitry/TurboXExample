@@ -1,0 +1,24 @@
+extends ExampleProject.Frm.Class1 "Расширение серверного класса на клиенте";
+
+inclass
+
+inobject private
+
+
+proc toggleRow(aRowNum:Integer);
+   FGrid.Section.Row[2].Visible = not FGrid.Section.Row[2].Visible;
+--   FGrid.
+end;
+
+proc LinkCells(Column,Row,Columns,Rows:Integer);
+   var sec = FGrid.section;
+   sec.LinkCells(Column,Row,Columns,Rows);
+end;
+
+proc DoShow;
+   extended DoShow;
+  
+end;
+
+
+end

@@ -21,7 +21,12 @@ proc Init;
           with AddButton("colapse",@BtnColapse_OnClick) do
              Caption = "Свернуть";
              width = 50;
+          end;
+          with AddButton("LinkCells",@BtnLink_OnClick) do
+             Caption = "Объеденить";
+             width = 50;
           end
+
        end;
        with AddNewFrame do
           FGrid = AddComp(Ctrl.IGrid.Create);
@@ -37,8 +42,10 @@ proc Init;
           AutoWidth = True;
           GroupsFirst = True;
           Hierarchical = True;
-          var n1 = AddNode("RowNode_1_1","Row 1-1");
+          var n1 = CreateLeaf("RowNode_1_1","Row 1-1");
           n1.AutoWidth = True;
+          var n2 = CreateLeaf("RowNode_1_2","Row 1-2");
+          n2.AutoWidth = True;
 --          n1.Hierarchical = True;
 --          n1.GroupsFirst = True;
 --
@@ -62,9 +69,22 @@ proc Init;
        FCol1 = AddNode("ColNode_1","Column 1");
        with FCol1 do
           var n1 = AddNode("ColNode_1_1","Column 1-1");
+          with n1 do
+             CellSettings.ValueType = VarString;
+             CellSettings.FontColor = 0x2D4263;
+             CellSettings.Color = 0x7CD1B8;
+          end;
+
           var n2 = AddNode("ColNode_1_2","Column 1-2");
+          with n2 do
+             CellSettings.ValueType = VarDate;
+             CellSettings.CellFormat = DateFormat;
+          end;
+
           var n3 = AddNode("ColNode_1_3","Column 1-3");
+          n3.CellSettings.ValueType = VarString;
           var n4 = AddNode("ColNode_1_4","Column 1-4");
+          n4.CellSettings.ValueType = VarString;
 
 --          n1.Border = [0, 0, 0,0] ;
 --           CreateLeaf("ColNode_1_1","Column 1-1");
@@ -76,9 +96,10 @@ proc Init;
        end;
 
        FCol2 = AddNode("ColNode_2","Column 2");
-
-       AddNode("ColNode_3","Column 3");
-
+       with FCol2 do
+          AddNode("ColNode_2_1","Column 2-1");
+          AddNode("ColNode_2_2","Column 2-2");
+       end;
     end;
 
 
@@ -113,12 +134,35 @@ proc Init;
    end;
 
 
---    FGrid.Section.Row[2].Visible = False;
+
 
 end;
 
+proc DoShow;
+   inherited DoShow;
+
+end;
+
+proc AfterShow;
+   inherited AfterShow;
+  
+end;
+
 proc BtnColapse_OnClick(aSender:IControl;aIndex:Integer);
-    FCol2.Visible = not FCol2.Visible;
+    toggleRow(2);
+    --FCol2.Visible = not FCol2.Visible;
+end;
+
+proc BtnLink_OnClick(aSender:IControl;aIndex:Integer);
+   LinkCells(5,2,2,1);
+end;
+
+proc toggleRow(aRowNum:Integer);
+-- реализация на клиенте
+end;
+
+proc LinkCells(Column,Row,Columns,Rows:Integer);
+-- реализация на клиенте
 end;
 
 

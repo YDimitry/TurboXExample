@@ -9,6 +9,7 @@
   <Groups>
     <Group Name="Records" Type="Documents" Disabled="False"/>
     <Group Name="ServerClasses" Type="Classes" Disabled="False"/>
+    <Group Name="Classes" Type="Classes" Disabled="False"/>
     <Group Name="Structure" Type="CalcStructs" Disabled="False"/>
     <Group Name="Languages" Type="Translations" Disabled="False"/>
   </Groups>
