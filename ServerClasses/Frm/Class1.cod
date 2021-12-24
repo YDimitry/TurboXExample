@@ -2,13 +2,19 @@ class inherited Com.Frm.IBlankWIthFrames "";
 import Com Classes Def, Consts;
 import SYS Classes Utils;
 import Bas Classes Calendar;
+import Def;
 
 inclass
-
+Type INode = Ctrl.Grid.INode;
 inobject private
    var FGrid: Ctrl.IGrid;
-   var FCol1 : Ctrl.Grid.INode;
-   var FCol2 : Ctrl.Grid.INode;
+   var FCol1 : INode;
+   var FCol2 : INode;
+   var FRow1_2 : INode;
+   var ColNode_1_3 :INode;
+
+
+   var AdditFrame : IFrame;
 proc Init;
    inherited Init;
 
@@ -16,7 +22,8 @@ proc Init;
    --RootFrame.Color = 125;
    TabsFrame.Visible  = True;
    MainTab.Caption = "Инфо тест" ;
-   with TabsFrame.AddNewFrame("Дополнительно") do
+   AdditFrame = TabsFrame.AddNewFrame("Дополнительно");
+   with AdditFrame do
        with AddNewFrame do
           with AddButton("colapse",@BtnColapse_OnClick) do
              Caption = "Свернуть";
@@ -38,14 +45,31 @@ proc Init;
        var vNode = FGrid.Rows.AddNode("RowNode_1","Строка 1");
 
        with vNode do
+          var btn = AddNode("Btn_RowNode_1","bb")
+          btn.AutoWidth = True;
+          btn.IsGroup = True;
+          btn.Hierarchical = True;
+
           IsGroup = True;
           AutoWidth = True;
           GroupsFirst = True;
           Hierarchical = True;
-          var n1 = CreateLeaf("RowNode_1_1","Row 1-1");
+          var n1 = CreateLeaf("RowNode_1_1","Row 1-19384934958435");
           n1.AutoWidth = True;
-          var n2 = CreateLeaf("RowNode_1_2","Row 1-2");
-          n2.AutoWidth = True;
+
+          btn = n1.AddNode("Btn_RowNode_1_1","bb")
+          btn.AutoWidth = True;
+          btn.IsGroup = True;
+          btn.Hierarchical = True;
+
+          FRow1_2 = CreateLeaf("RowNode_1_2","Row 1-2");
+          FRow1_2.AutoWidth = True;
+          btn = FRow1_2.AddNode("Btn_RowNode_1_2","bb")
+          btn.AutoWidth = True;
+          btn.IsGroup = True;
+          btn.Hierarchical = True;
+
+
 --          n1.Hierarchical = True;
 --          n1.GroupsFirst = True;
 --
@@ -81,8 +105,10 @@ proc Init;
              CellSettings.CellFormat = DateFormat;
           end;
 
-          var n3 = AddNode("ColNode_1_3","Column 1-3");
-          n3.CellSettings.ValueType = VarString;
+          ColNode_1_3 = AddNode("ColNode_1_3","Column 1-3");
+          ColNode_1_3.CellSettings.ValueType = VarString;
+
+
           var n4 = AddNode("ColNode_1_4","Column 1-4");
           n4.CellSettings.ValueType = VarString;
 
@@ -102,10 +128,9 @@ proc Init;
        end;
     end;
 
-
-
    with RootFrame do
       SetColumns([-StdLabelWidth,1/2,-ButtonSize]);
+
    end;
    with MainTab.AddNewFrame.AddBox("Это Бокс") do
        --SetColumns([-StdLabelWidth,1/2,-ButtonSize]);
@@ -134,13 +159,24 @@ proc Init;
    end;
 
 
+   var somevar = "qweoiuqweiuqw";
 
 
-end;
+   TabsFrame.OnSwitch = func(aSender :Ctrl.IFrame; aSubFrame :Ctrl.IFrame) :Logical
+                          Result = True;
+                          if aSubFrame = AdditFrame then
+--                             CalculateDocucmentsSpan();
+                          end;
+                        end;
+
+
+end;     --Init
 
 proc DoShow;
    inherited DoShow;
-
+   with FGrid.Data.GetCell(ColNode_1_3,FRow1_2) do
+      Value = "qqwwwwwww";
+   end;
 end;
 
 proc AfterShow;
@@ -164,6 +200,25 @@ end;
 proc LinkCells(Column,Row,Columns,Rows:Integer);
 -- реализация на клиенте
 end;
+
+proc SetJumpButton(var aNode: INode = nil; aIsFirst: Boolean);
+-- реализация на клиенте
+end;
+
+proc RemoveNonGroupIcon(aDocument: Record; var aNode: INode = nil);
+-- реализация на клиенте
+end;
+
+proc CalculateDocucmentsSpan;
+     var item : Variant;
+     for var I = 1..FGrid.Rows.Components.Count do
+         item = FGrid.Rows.Components.Items[I];
+
+         SetJumpButton(item, I=1);
+--         RemoveNonGroupIcon(item.Value, item);
+     end;
+end;
+
 
 
 end

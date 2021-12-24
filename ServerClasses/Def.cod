@@ -7,6 +7,6 @@ type Rec_Example = Rec.Example;
 type Frm_Example = Frm.Example;
 type Tab_Example = Tab.Example;
 type Rec_Example_subTblStruct = Rec.subTblStruct;
-
+type INode = Com.Ctrl.Grid.INode;
 
 end

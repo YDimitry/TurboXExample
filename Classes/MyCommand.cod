@@ -1,0 +1,52 @@
+class inherited Command "";
+import Com;
+
+inclass public
+
+func CreateEx(aName,aCaption,aIcon:String):Selftype;
+   Result = inherited Create;
+   Result = Self.Create;
+   Result.Name = aName;
+   Result.Caption = aCaption;
+   Result.Image =  Lib.GetIconsByName(aIcon);
+
+end
+
+inobject public
+var ƒействи€ оманды : proc;
+var ƒействи€Ћогической оманды : proc(aState:Logical);
+
+var checkbox : Logical;
+
+proc Register;
+   var vGroup : CommandGroup;
+   for var I = 1..Commands.GroupsCount do
+      vGroup = Commands.Group[I];
+      if vGroup.Name = "Custom" then
+         break ;
+        
+      end;
+   end;
+   if vGroup <>nil then
+     vGroup.AddCommand(Self);
+   else
+      trace("√руппа не найдена");
+   end;
+end;
+
+
+inobject private
+
+proc OnDispatch;
+    if checkbox then
+       Checked = not Checked;
+       ƒействи€Ћогической оманды(Checked);
+       return;
+    end;
+
+    if ƒействи€ оманды<>nil then
+       ƒействи€ оманды();
+    end;
+end;
+
+end

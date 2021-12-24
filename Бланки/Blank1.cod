@@ -1,0 +1,216 @@
+Class  "" ;
+-- Пробы Меню и команд
+import Com Classes Def,Lib,Strings;
+import Bas Classes Def;
+
+InClass private
+ stored var Field2 : String;
+
+InObject Private
+
+    cmdKernelClose :Command                = НайтиКомандуПоИмени("Kernel.Window.Close");
+
+    cmdKernelCopy:Command                  = НайтиКомандуПоИмени("Kernel.Edit.Copy");
+    cmdKernelCut:Command                   = НайтиКомандуПоИмени("Kernel.Edit.Cut");
+
+    cmdKernelPaste:Command                 = НайтиКомандуПоИмени("Kernel.Edit.Paste");
+    cmdKernelDelete:Command                = НайтиКомандуПоИмени("Kernel.Edit.Delete");
+
+    cmdKernelInsertObj:Command             = НайтиКомандуПоИмени("Kernel.Edit.InsertObj");
+    cmdKernelDeleteObj:Command             = НайтиКомандуПоИмени("Kernel.Edit.DeleteObj");
+
+    cmdKernelStrokeMoveUp:Command          = НайтиКомандуПоИмени("Kernel.Form.Run.StrokeMoveUp");
+    cmdKernelStrokeMoveDown:Command        = НайтиКомандуПоИмени("Kernel.Form.Run.StrokeMoveDown");
+
+    cmdKernelColMoveLeft:Command           = НайтиКомандуПоИмени("Kernel.View.ColMoveLeft");
+    cmdKernelColMoveRight:Command          = НайтиКомандуПоИмени("Kernel.View.ColMoveRight");
+
+    cmdAllCommandsList :MyCommand                := KernelCommandByFullName("Custom.AllCommandsList");
+    cmdLogicalCommand1 :MyCommand                := KernelCommandByFullName("Custom.LogicalCommand1");
+    cmdLogicalCommand2 :MyCommand                := KernelCommandByFullName("Custom.LogicalCommand2");
+    cmdLogicalCommand3 :MyCommand                := KernelCommandByFullName("Custom.LogicalCommand3");
+
+var Field1 : String;
+var Field3 : String; --Data_Entity;
+--------------------------------------------------------------------------------
+--{ Обработчики событий бланка
+  sect :TemplateSection;
+  cell1 : TemplateCell;
+  cell3 : TemplateCell;
+  cell5 : TemplateCell;
+  sec2 :TemplateSection;
+
+  func CellOnClick(Cell :TemplateCell; Action :Kernel.Template.ClickTypes):Logical;
+--   var btn = Button
+--   var items = ["item1","item2","item3"] ;
+
+--   var items = [ Lib.GetIconsByName("Com Additem_1")] ;
+   cmdAllCommandsList.ДействияКоманды = @СписокВсехКоманд;
+   cmdLogicalCommand1.ДействияЛогическойКоманды = @CheckFlag1;
+
+   PopupMenu( [cmdAllCommandsList,cmdLogicalCommand1 ]);
+
+
+--    if item > 0  then
+--      trace(Fmt("выбрана позиция %d",[item]));
+--    end;
+
+--    Result = True; -- Разрешаем стандартную обработку
+
+    -- ;
+
+  end;
+
+  proc шаблон_ПриОткрытии(Create :Logical);
+    cell1 = sect.Cell[1,1];
+    cell3 = sect.Cell[2,1];
+    cell5 = sec2.Cell[5,2];
+
+    if cmdAllCommandsList=nil then
+    cmdAllCommandsList = MyCommand.CreateEx("AllCommandsList","Список всех команд","file");
+    cmdAllCommandsList.Register;
+    end;
+
+
+    if cmdLogicalCommand1 = nil then
+       cmdLogicalCommand1 = MyCommand.CreateEx("LogicalCommand1","Флажок 1","angle-down");
+       cmdLogicalCommand1.checkbox = True;
+       cmdLogicalCommand1.Register
+    end
+
+    Template.OnPopupMenu = @Blank_OnPopupMenu;
+
+--    mycom.ДействияКоманды = proc trace("выполнена команда");СписокВсехКоманд;end;
+--    cell3.StaticStyle = Template.StaticSmallButton;
+--    cell3.Image = GetIconsByName("Edititem_1");
+--    cell3.Contents = '';
+--    Cell3.ImageSize = 15;
+     cell3.ButtonStyle = Template.ComboButton;
+     cell5.OnLookup = @OpenEntityCardFile;
+--     cell5.Contents = "aaaaa";
+  end;
+
+  func OpenEntityCardFile(aCell :TemplateCell; aValue :Variant; var aNewValue :Variant):Logical;
+    var vEnt:Data_Entity;
+    if OpenCardFile("Bas.Tab.Data.Entity",vEnt,,Window.StackedWindow) = cmOk then
+       trace("выбрана запис");
+    end
+    Result = False;
+
+  end;
+
+  func шаблон_ПриОтмене :Logical;
+    -- Вызывается при отмене изменений записи в бланке-редакторе
+     
+    Result = True; -- Разрешаем отмену записи
+  end;
+
+  proc шаблон_ПриЗакрытии(Destroy :Logical);
+    -- Вызывается при закрытия окна формы
+    --   Destroy: True - форма закрывается, False - форма сохраняется при закрытии сессии
+  end;
+
+  func шаблон_ПриЗаписи :Logical;
+    -- Вызывается при сохранении записи в бланке-редакторе
+    Result = True; -- Продолжить сохранение записи
+
+  end;
+
+  proc кнОК_ПриНажатии(Sender :Button);
+     Close;
+  end;
+
+  proc кнОтменить_ПриНажатии(Sender :Button);
+     Close;
+  end;
+
+  proc кнПомощь_ПриНажатии(Sender :Button);
+      
+  end;
+
+
+  func Blank_OnPopupMenu(Object :Object; ByMouse :Logical) :Logical;
+     if Object is TemplateCell then
+        PopupMenu(["index1","index2"]);
+        return;
+     end;
+     Result = True;
+ end;
+
+  func BlankOnPopupMenu(Object :Object; ByMouse :Logical) :Logical;
+    -- Действие при показе контекстного меню
+    -- Параметры:
+    --   Object: Объект, для которого открывается меню
+    --   ByMouse: Способ вызова меню: True - кликом мыши, False - кнопкой App
+--    var vCmd = Command.Create;
+--    vCmd.Name = "Command1";
+--    vCmd.Caption = "Command 1";
+--    vCmd.Image = Lib.GetIconsByName("Com Additem_1");
+
+    if Object is TemplateCell and Object = cell1 then
+
+       PopupMenu( [cmdKernelCopy,cmdKernelCut,cmdKernelColMoveLeft,"-", cmdKernelClose ]);
+       return;
+    end;
+
+    Result = True; -- Разрешаем открытие стандартного меню
+  end;
+
+  func Field2Btn_OnClick(Cell :TemplateCell; Action :Kernel.Template.ClickTypes)
+    :Logical;
+    -- Обработка события нажатия в зависимости от типа
+    -- Параметры:
+    --   Cell: клетка шаблона
+    --   Action: тип нажатия (SingleClick, DoubleClick, EnterPressed, ButtonPressed)
+    trace(GetPrintedNumberInt(Field2))
+    Result = True; -- Разрешаем стандартную обработку
+  end;
+
+
+--}
+
+proc CheckFlag1(aFlag:Logical);
+   trace("check flag command = "+str(aFlag));
+end;
+
+proc СписокВсехКоманд;
+   СписокВсехКомандГруппы(Commands);
+end;
+
+proc СписокВсехКомандГруппы(aGroup:CommandGroup;aParentGroupName:String=nil);
+   for var I = 1..aGroup.GroupsCount do
+        СписокВсехКомандГруппы(aGroup.Group[I],if(aParentGroupName<>nil,aParentGroupName+"."+aGroup.Name,aGroup.Name));
+        --trace(aGroup.Group[I].Name+"   "+ aGroup.Group[I].Caption);
+   end;
+
+   for var J = 1 .. aGroup.CommandsCount do
+      trace(if(aParentGroupName<>nil,aParentGroupName+".","")+aGroup.Name+"."+aGroup.Command[J].Name+" ---  "+ aGroup.Command[J].Caption);
+   end
+   trace("-----------------------------");
+
+end;
+
+func Name :variant;
+  
+  Result = nil;
+end;
+
+func GetPrintedNumberInt(aText:String) :Integer;
+    if aText=nil or CharPos('/', aText) < 1 then
+        Return;
+    end;
+
+
+    var tmp:String;
+    var pos = aText.Len;
+    while pos > 0 and isNum(aText[pos]) do
+       tmp = aText[pos]+ tmp;
+       dec(pos);
+    end;
+    if tmp<>nil then
+       Result = int(tmp);
+    end;
+
+end;
+
+end

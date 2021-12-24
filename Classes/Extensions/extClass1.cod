@@ -1,4 +1,5 @@
 extends ExampleProject.Frm.Class1 "Расширение серверного класса на клиенте";
+import Def;
 
 inclass
 
@@ -20,5 +21,29 @@ proc DoShow;
   
 end;
 
+
+proc SetJumpButton(var aNode: INode = nil; aIsFirst: Boolean);
+
+    var BtnCellTemplate : TemplateCell;
+
+     BtnCellTemplate = aNode.TplCaptionCell; -- FGrid.Rows.ByKey[aNode.Value.DocIdStr].TplCaptionCell;
+     BtnCellTemplate.StaticStyle = Template.StaticSmallButton;
+     BtnCellTemplate.Contents = '';
+
+     if aIsFirst then
+         BtnCellTemplate.Owner.Column[BtnCellTemplate.Column].Width = BtnCellTemplate.Owner.Row[BtnCellTemplate.Row].Height;
+     end;
+
+     BtnCellTemplate.Image = Com.Lib.GetIconsByName("JumpButton");
+
+     BtnCellTemplate.Alignment = Template.CenterAlign;
+end;
+
+proc RemoveNonGroupIcon(aDocument: Record; var aNode: INode = nil);
+
+    if not aNode.IsGroup then
+        aNode.TplCaptionCell.Image = nil;
+    end;
+end;
 
 end

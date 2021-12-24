@@ -12,5 +12,6 @@
     <Group Name="Classes" Type="Classes" Disabled="False"/>
     <Group Name="Structure" Type="CalcStructs" Disabled="False"/>
     <Group Name="Languages" Type="Translations" Disabled="False"/>
+    <Group Name="Бланки" Type="Blanks" Disabled="False"/>
   </Groups>
 </Project>
