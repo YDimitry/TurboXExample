@@ -1,0 +1,28 @@
+class inherited Com.Frm.IBlankWIthFrames "";
+
+inclass
+
+inobject private
+  ts :ExampleProject.BrowserTools.TestJS;
+
+
+
+
+inobject public
+
+proc DataTransVisual;
+
+   ts.Initialization;
+  
+end;
+
+proc Init;
+   inherited Init;
+
+   DataTransVisual;
+
+  
+end;
+
+
+end

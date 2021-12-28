@@ -1,0 +1,49 @@
+class inherited Com.Ctrl.IBrowser "";
+
+inclass
+
+inobject public
+
+  var HTMLCytoscapeHead : String = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>Test Test</div>
+</body>
+</html>
+  `;
+
+inobject private
+
+  proc Init;
+     inherited Init;
+
+     InitSource;
+  end;
+
+  proc InitSource;
+    var vPath :String;
+    var vFile : String;
+
+    if Sys.Utils.WebSide then
+
+    else
+       vPath = SessionInfo.LocalFolder;
+
+
+    end;
+--       vFile = vPath + 'Cytoscapejs_' + Str(Owner.ObjectIndex) + '.html';
+--       var vTextFile1 : TextFile  = TextFile.Create(vFile, fmCreate, TextFile.UTF8);
+--       vTextFile1.Write(HTMLCytoscapeHead);
+       -- JS работает только в WEB
+       URL = "c:\test\Cytoscape_try\TestJS.html";
+  end;
+
+
+
+
+end

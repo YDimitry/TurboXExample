@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Resource Version="2" Inherited="Com.Frm.IBlankWIthFrames">
+  <Inherited>
+    <Inherited Name="RootFrame">
+      <Inherited Name="TabsFrame" Visible="True">
+        <Component Name="WebControlFrame" Class="Com.Ctrl.IFrame" After="#0">
+          <Component Name="ts" Class="ExampleProject.BrowserTools.TestJS"/>
+        </Component>
+      </Inherited>
+    </Inherited>
+  </Inherited>
+</Resource>
